@@ -1,31 +1,32 @@
 #!/bin/bash
 
 # Skills · 一键安装脚本
-# 支持选择安装单个或全部技能
+# 支持 Claude Code 和 OpenClaw
 
 REPO="Aolinkun/Skills"
 BASE_URL="https://raw.githubusercontent.com/$REPO/main"
-SKILLS_DIR="$HOME/.claude/skills"
-
-install_skill() {
-  local SKILL="$1"
-  local INSTALL_DIR="$SKILLS_DIR/$SKILL"
-
-  echo ""
-  echo "📦 安装 $SKILL ..."
-  mkdir -p "$INSTALL_DIR/references"
-
-  curl -fsSL "$BASE_URL/$SKILL/SKILL.md" -o "$INSTALL_DIR/SKILL.md" || { echo "❌ 下载 $SKILL/SKILL.md 失败，请稍后重试"; return 1; }
-  curl -fsSL "$BASE_URL/$SKILL/references/theory.md" -o "$INSTALL_DIR/references/theory.md" 2>/dev/null || true
-  curl -fsSL "$BASE_URL/$SKILL/references/difficulty-levels.md" -o "$INSTALL_DIR/references/difficulty-levels.md" 2>/dev/null || true
-  curl -fsSL "$BASE_URL/$SKILL/references/mbo.md" -o "$INSTALL_DIR/references/mbo.md" 2>/dev/null || true
-  curl -fsSL "$BASE_URL/$SKILL/references/examples.md" -o "$INSTALL_DIR/references/examples.md" 2>/dev/null || true
-
-  VERSION=$(grep "^# Version" "$INSTALL_DIR/SKILL.md" 2>/dev/null || echo "# Version: 未知")
-  echo "✅ $SKILL 安装完成！$VERSION"
-}
 
 echo "🚀 Skills 安装程序"
+echo ""
+echo "请选择安装目标："
+echo "  1) Claude Code  (~/.claude/skills/)  [默认]"
+echo "  2) OpenClaw     (~/.openclaw/skills/)"
+echo "  3) 两个都装"
+echo ""
+
+read -p "输入选项 [1/2/3]，直接回车默认 Claude Code：" target < /dev/tty
+target=${target:-1}
+
+case "$target" in
+  1) SKILLS_DIR="$HOME/.claude/skills" ;;
+  2) SKILLS_DIR="$HOME/.openclaw/skills" ;;
+  3) SKILLS_DIR="both" ;;
+  *)
+    echo "❌ 无效选项，请输入 1、2 或 3"
+    exit 1
+    ;;
+esac
+
 echo ""
 echo "请选择要安装的技能："
 echo "  1) ai-tutor    — 苏格拉底学习导师"
@@ -36,20 +37,55 @@ echo ""
 read -p "输入选项 [1/2/3]，直接回车默认全部安装：" choice < /dev/tty
 choice=${choice:-3}
 
-case "$choice" in
-  1) install_skill "ai-tutor" ;;
-  2) install_skill "team-flow" ;;
-  3)
-    install_skill "ai-tutor"
-    install_skill "team-flow"
-    ;;
-  *)
-    echo "❌ 无效选项，请输入 1、2 或 3"
-    exit 1
-    ;;
-esac
+install_skill() {
+  local SKILL="$1"
+  local DIR="$2"
+  local INSTALL_DIR="$DIR/$SKILL"
+
+  echo "  📦 安装 $SKILL 到 $DIR ..."
+  mkdir -p "$INSTALL_DIR/references"
+
+  curl -fsSL "$BASE_URL/$SKILL/SKILL.md" -o "$INSTALL_DIR/SKILL.md" || { echo "  ❌ 下载 $SKILL/SKILL.md 失败，请稍后重试"; return 1; }
+  curl -fsSL "$BASE_URL/$SKILL/references/theory.md" -o "$INSTALL_DIR/references/theory.md" 2>/dev/null || true
+  curl -fsSL "$BASE_URL/$SKILL/references/difficulty-levels.md" -o "$INSTALL_DIR/references/difficulty-levels.md" 2>/dev/null || true
+  curl -fsSL "$BASE_URL/$SKILL/references/mbo.md" -o "$INSTALL_DIR/references/mbo.md" 2>/dev/null || true
+  curl -fsSL "$BASE_URL/$SKILL/references/examples.md" -o "$INSTALL_DIR/references/examples.md" 2>/dev/null || true
+
+  VERSION=$(grep "^# Version" "$INSTALL_DIR/SKILL.md" 2>/dev/null || echo "版本未知")
+  echo "  ✅ $SKILL 安装完成！$VERSION"
+}
+
+install_to_dir() {
+  local DIR="$1"
+  echo ""
+  echo "━━ 安装到 $DIR"
+  case "$choice" in
+    1) install_skill "ai-tutor" "$DIR" ;;
+    2) install_skill "team-flow" "$DIR" ;;
+    3)
+      install_skill "ai-tutor" "$DIR"
+      install_skill "team-flow" "$DIR"
+      ;;
+  esac
+}
+
+if [ "$SKILLS_DIR" = "both" ]; then
+  install_to_dir "$HOME/.claude/skills"
+  install_to_dir "$HOME/.openclaw/skills"
+else
+  install_to_dir "$SKILLS_DIR"
+fi
 
 echo ""
-echo "验证已安装版本："
-grep "^# Version" "$SKILLS_DIR/ai-tutor/SKILL.md" 2>/dev/null && echo "  路径：$SKILLS_DIR/ai-tutor"
-grep "^# Version" "$SKILLS_DIR/team-flow/SKILL.md" 2>/dev/null && echo "  路径：$SKILLS_DIR/team-flow"
+echo "━━ 已安装版本"
+for skill in ai-tutor team-flow; do
+  for dir in "$HOME/.claude/skills" "$HOME/.openclaw/skills"; do
+    FILE="$dir/$skill/SKILL.md"
+    if [ -f "$FILE" ]; then
+      VERSION=$(grep "^# Version" "$FILE" 2>/dev/null || echo "版本未知")
+      echo "  $skill ($dir): $VERSION"
+    fi
+  done
+done
+echo ""
+echo "在 Claude Code 或 OpenClaw 中说「我想学 XXX」或「新建任务」即可使用"

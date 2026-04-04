@@ -2,7 +2,7 @@
 
 > 由 [@Aolinkun](https://github.com/Aolinkun) 维护 · 持续更新
 
-一套用于 Claude Code 的实用技能集合，来自真实业务场景中的沉淀。每个技能都经过真实使用验证，开箱即用。
+一套用于 Claude Code / OpenClaw 的实用技能集合，来自真实业务场景中的沉淀。每个技能都经过真实使用验证，开箱即用。
 
 ---
 
@@ -12,7 +12,7 @@
 curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh | bash
 ```
 
-运行后选择安装哪个技能，或直接回车全部安装。
+运行后选择安装目标（Claude Code / OpenClaw / 两个都装），再选择安装哪个技能。
 
 ---
 
@@ -40,7 +40,7 @@ curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh | b
 ---
 
 ### 🔀 Team Flow · 多角色任务协作系统
-`v1.0.0` · 适合：用 Claude Code 管理团队任务的人
+`v1.0.0` · 适合：用 Claude Code / OpenClaw 管理团队任务的人
 
 **解决什么问题**：一个人同时用多个 AI 和真人协作时，任务散落在各处——AI 做到一半发现缺资料又来找人，没有一个地方让所有角色都知道现在在做什么。
 
@@ -63,8 +63,13 @@ curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh | b
 ## 验证安装版本
 
 ```bash
+# Claude Code
 grep "^# Version" ~/.claude/skills/ai-tutor/SKILL.md
 grep "^# Version" ~/.claude/skills/team-flow/SKILL.md
+
+# OpenClaw
+grep "^# Version" ~/.openclaw/skills/ai-tutor/SKILL.md
+grep "^# Version" ~/.openclaw/skills/team-flow/SKILL.md
 ```
 
 ---
@@ -72,8 +77,13 @@ grep "^# Version" ~/.claude/skills/team-flow/SKILL.md
 ## 卸载
 
 ```bash
+# Claude Code
 rm -rf ~/.claude/skills/ai-tutor
 rm -rf ~/.claude/skills/team-flow
+
+# OpenClaw
+rm -rf ~/.openclaw/skills/ai-tutor
+rm -rf ~/.openclaw/skills/team-flow
 ```
 
 ---
