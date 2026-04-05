@@ -64,12 +64,33 @@ curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh | b
 
 ---
 
+### ✍️ Non-Consensus · 正确的非共识内容生成
+`v1.0.0` · 适合：做自媒体内容的人
+
+**解决什么问题**：大多数人知道「反常识」内容容易爆，但不知道怎么批量生产。盲目反常识又容易传播错误认知。这个技能帮你系统性地找到真正正确的非共识，而不是为了反而反。
+
+**这个技能做什么**：
+- 批量挖掘你所在领域的刻板印象（简化因果关系）
+- 按「识别刻板印象 → 反例 → 新框架 → 定义关键词」四步生成完整内容
+- 自动适配小红书、抖音、视频号、公众号的不同风格
+- 结合你的真实业务场景，生产有说服力的具体反例
+
+**使用**：
+```
+帮我生成非共识内容
+我是做写字楼租赁的，给我10个选题
+帮我看看这个观点是好的非共识吗：[你的观点]
+```
+
+---
+
 ## 验证安装版本
 
 ```bash
 # Claude Code
 grep "^# Version" ~/.claude/skills/ai-tutor/SKILL.md
 grep "^# Version" ~/.claude/skills/team-flow/SKILL.md
+grep "^# Version" ~/.claude/skills/non-consensus/SKILL.md
 
 # OpenClaw
 grep "^# Version" ~/.openclaw/skills/ai-tutor/SKILL.md
@@ -78,6 +99,7 @@ grep "^# Version" ~/.openclaw/skills/team-flow/SKILL.md
 # Codex
 grep "^# Version" ~/.codex/skills/ai-tutor/SKILL.md
 grep "^# Version" ~/.codex/skills/team-flow/SKILL.md
+grep "^# Version" ~/.codex/skills/non-consensus/SKILL.md
 ```
 
 ---

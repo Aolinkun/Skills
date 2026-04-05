@@ -31,13 +31,14 @@ esac
 
 echo ""
 echo "请选择要安装的技能："
-echo "  1) ai-tutor    — 苏格拉底学习导师"
-echo "  2) team-flow   — 多角色任务协作系统"
-echo "  3) 全部安装（默认）"
+echo "  1) ai-tutor       — 苏格拉底学习导师"
+echo "  2) team-flow      — 多角色任务协作系统"
+echo "  3) non-consensus  — 正确的非共识内容生成"
+echo "  4) 全部安装（默认）"
 echo ""
 
-read -p "输入选项 [1/2/3]，直接回车默认全部安装：" choice < /dev/tty
-choice=${choice:-3}
+read -p "输入选项 [1/2/3/4]，直接回车默认全部安装：" choice < /dev/tty
+choice=${choice:-4}
 
 install_skill() {
   local SKILL="$1"
@@ -52,6 +53,7 @@ install_skill() {
   curl -fsSL "$BASE_URL/$SKILL/references/difficulty-levels.md" -o "$INSTALL_DIR/references/difficulty-levels.md" 2>/dev/null || true
   curl -fsSL "$BASE_URL/$SKILL/references/mbo.md" -o "$INSTALL_DIR/references/mbo.md" 2>/dev/null || true
   curl -fsSL "$BASE_URL/$SKILL/references/examples.md" -o "$INSTALL_DIR/references/examples.md" 2>/dev/null || true
+  curl -fsSL "$BASE_URL/$SKILL/references/lippmann.md" -o "$INSTALL_DIR/references/lippmann.md" 2>/dev/null || true
 
   VERSION=$(grep "^# Version" "$INSTALL_DIR/SKILL.md" 2>/dev/null || echo "版本未知")
   echo "  ✅ $SKILL 安装完成！$VERSION"
@@ -63,16 +65,18 @@ for DIR in "${DIRS[@]}"; do
   case "$choice" in
     1) install_skill "ai-tutor" "$DIR" ;;
     2) install_skill "team-flow" "$DIR" ;;
-    3)
+    3) install_skill "non-consensus" "$DIR" ;;
+    4)
       install_skill "ai-tutor" "$DIR"
       install_skill "team-flow" "$DIR"
+      install_skill "non-consensus" "$DIR"
       ;;
   esac
 done
 
 echo ""
 echo "━━ 已安装版本"
-for skill in ai-tutor team-flow; do
+for skill in ai-tutor team-flow non-consensus; do
   for dir in "$HOME/.claude/skills" "$HOME/.openclaw/skills" "$HOME/.codex/skills"; do
     FILE="$dir/$skill/SKILL.md"
     if [ -f "$FILE" ]; then
