@@ -2,7 +2,7 @@
 
 > 由 [@Aolinkun](https://github.com/Aolinkun) 维护 · 持续更新
 
-一套用于 Claude Code / OpenClaw 的实用技能集合，来自真实业务场景中的沉淀。每个技能都经过真实使用验证，开箱即用。
+一套用于 Claude Code / OpenClaw / Codex 的实用技能集合，来自真实业务场景中的沉淀。每个技能都经过真实使用验证，开箱即用。
 
 ---
 
@@ -12,7 +12,9 @@
 curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh | bash
 ```
 
-运行后选择安装目标（Claude Code / OpenClaw / 两个都装），再选择安装哪个技能。
+运行后选择安装目标（Claude Code / OpenClaw / Codex / 全部），再选择安装哪个技能。
+
+> **Codex 用户注意**：需要用 `codex --enable skills` 启动才能使用技能。
 
 ---
 
@@ -72,6 +74,10 @@ grep "^# Version" ~/.claude/skills/team-flow/SKILL.md
 # OpenClaw
 grep "^# Version" ~/.openclaw/skills/ai-tutor/SKILL.md
 grep "^# Version" ~/.openclaw/skills/team-flow/SKILL.md
+
+# Codex
+grep "^# Version" ~/.codex/skills/ai-tutor/SKILL.md
+grep "^# Version" ~/.codex/skills/team-flow/SKILL.md
 ```
 
 ---
@@ -86,6 +92,10 @@ rm -rf ~/.claude/skills/team-flow
 # OpenClaw
 rm -rf ~/.openclaw/skills/ai-tutor
 rm -rf ~/.openclaw/skills/team-flow
+
+# Codex
+rm -rf ~/.codex/skills/ai-tutor
+rm -rf ~/.codex/skills/team-flow
 ```
 
 ---
