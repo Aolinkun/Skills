@@ -84,6 +84,27 @@ curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh | b
 
 ---
 
+### 💡 Non-Consensus · 正确的非共识内容生成器
+`v1.0.0` · 适合：自媒体博主、内容创作者
+
+**解决什么问题**：很多创作者知道要「讲认知」，但不知道怎么批量产出有深度的内容。这个技能基于李普曼《公众舆论》的刻板印象理论，帮你系统化地找到领域内的刻板印象并击破它。
+
+**这个技能做什么**：
+- 给定领域，批量挖掘 8-12 个刻板印象
+- 对每个刻板印象生成完整的「识别→反例→新框架→定义」四步结构
+- 结合你的真实经历生成内容，不为反而反
+- 将所有框架存入内容库，随时取用
+
+**使用**：
+```
+帮我找写字楼租赁行业的刻板印象
+我有个观点想做成内容
+帮我批量生产非共识内容
+```
+
+
+---
+
 ## 验证安装版本
 
 ```bash
@@ -95,10 +116,12 @@ grep "^# Version" ~/.claude/skills/non-consensus/SKILL.md
 # OpenClaw
 grep "^# Version" ~/.openclaw/skills/ai-tutor/SKILL.md
 grep "^# Version" ~/.openclaw/skills/team-flow/SKILL.md
+grep "^# Version" ~/.openclaw/skills/non-consensus/SKILL.md
 
 # Codex
 grep "^# Version" ~/.codex/skills/ai-tutor/SKILL.md
 grep "^# Version" ~/.codex/skills/team-flow/SKILL.md
+grep "^# Version" ~/.codex/skills/non-consensus/SKILL.md
 grep "^# Version" ~/.codex/skills/non-consensus/SKILL.md
 ```
 
@@ -110,14 +133,17 @@ grep "^# Version" ~/.codex/skills/non-consensus/SKILL.md
 # Claude Code
 rm -rf ~/.claude/skills/ai-tutor
 rm -rf ~/.claude/skills/team-flow
+rm -rf ~/.claude/skills/non-consensus
 
 # OpenClaw
 rm -rf ~/.openclaw/skills/ai-tutor
 rm -rf ~/.openclaw/skills/team-flow
+rm -rf ~/.openclaw/skills/non-consensus
 
 # Codex
 rm -rf ~/.codex/skills/ai-tutor
 rm -rf ~/.codex/skills/team-flow
+rm -rf ~/.codex/skills/non-consensus
 ```
 
 ---
@@ -148,3 +174,9 @@ rm -rf ~/.codex/skills/team-flow
 ## License
 
 MIT
+
+
+### Non-Consensus
+| 版本 | 更新内容 |
+|------|----------|
+| v1.0.0 | 初始版本 |
