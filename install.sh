@@ -35,11 +35,12 @@ echo "  1) ai-tutor       — 苏格拉底学习导师"
 echo "  2) team-flow      — 多角色任务协作系统"
 echo "  3) non-consensus  — 正确的非共识内容生成"
 echo "  4) cover-maker    — 社交媒体封面图生成器"
-echo "  5) 全部安装（默认）"
+echo "  5) skill-updater  — 技能库版本管理工具"
+echo "  6) 全部安装（默认）"
 echo ""
 
-read -p "输入选项 [1/2/3/4/5]，直接回车默认全部安装：" choice < /dev/tty
-choice=${choice:-5}
+read -p "输入选项 [1/2/3/4/5/6]，直接回车默认全部安装：" choice < /dev/tty
+choice=${choice:-6}
 
 install_skill() {
   local SKILL="$1"
@@ -70,18 +71,20 @@ for DIR in "${DIRS[@]}"; do
     2) install_skill "team-flow" "$DIR" ;;
     3) install_skill "non-consensus" "$DIR" ;;
     4) install_skill "cover-maker" "$DIR" ;;
-    5)
+    5) install_skill "skill-updater" "$DIR" ;;
+    6)
       install_skill "ai-tutor" "$DIR"
       install_skill "team-flow" "$DIR"
       install_skill "non-consensus" "$DIR"
       install_skill "cover-maker" "$DIR"
+      install_skill "skill-updater" "$DIR"
       ;;
   esac
 done
 
 echo ""
 echo "━━ 已安装版本"
-for skill in ai-tutor team-flow non-consensus cover-maker; do
+for skill in ai-tutor team-flow non-consensus cover-maker skill-updater; do
   for dir in "$HOME/.claude/skills" "$HOME/.openclaw/skills" "$HOME/.codex/skills"; do
     FILE="$dir/$skill/SKILL.md"
     if [ -f "$FILE" ]; then
