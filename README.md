@@ -106,7 +106,7 @@ curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh | b
 ---
 
 ### 🖼️ Cover Maker · 社交媒体封面生成器
-`v1.1.0` · 适合：做自媒体内容的人
+`v1.4.0` · 适合：做自媒体内容的人
 
 **解决什么问题**：每次发内容都要花时间做封面，设计工具又复杂。这个技能让你直接说内容和平台，自动生成符合平台尺寸、排版专业的 HTML 封面文件，浏览器打开截图就能用。
 
