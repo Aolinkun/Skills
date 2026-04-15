@@ -70,13 +70,11 @@ for DIR in "${DIRS[@]}"; do
     1) install_skill "ai-tutor" "$DIR" ;;
     2) install_skill "team-flow" "$DIR" ;;
     3) install_skill "non-consensus" "$DIR" ;;
-    4) install_skill "cover-maker" "$DIR" ;;
-    5) install_skill "skill-updater" "$DIR" ;;
-    6)
+    4) install_skill "skill-updater" "$DIR" ;;
+    5)
       install_skill "ai-tutor" "$DIR"
       install_skill "team-flow" "$DIR"
       install_skill "non-consensus" "$DIR"
-      install_skill "cover-maker" "$DIR"
       install_skill "skill-updater" "$DIR"
       ;;
   esac
@@ -84,7 +82,7 @@ done
 
 echo ""
 echo "━━ 已安装版本"
-for skill in ai-tutor team-flow non-consensus cover-maker skill-updater; do
+for skill in ai-tutor team-flow non-consensus skill-updater; do
   for dir in "$HOME/.claude/skills" "$HOME/.openclaw/skills" "$HOME/.codex/skills"; do
     FILE="$dir/$skill/SKILL.md"
     if [ -f "$FILE" ]; then
