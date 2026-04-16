@@ -101,6 +101,26 @@ curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh | b
 
 ---
 
+### 🚀 Fastlane · 快车道业务评估
+`v1.0.0` · 适合：想评估自己业务潜力的人
+
+**解决什么问题**：不知道自己的业务在哪条「车道」，不知道瓶颈在哪里，不知道怎么往快车道走。
+
+**这个技能做什么**：
+- 用 NECST 五维度（需求/壁垒/控制/规模/时间脱钩）评估你的业务
+- 判断你在人行道/慢车道/快车道哪条车道
+- 找出最致命的一个瓶颈
+- 给出具体可操作的换车道路径
+
+**使用**：
+```
+评估我的业务
+我在哪条车道
+这个生意能不能换快车道
+```
+
+---
+
 ## 验证安装版本
 
 ```bash
@@ -109,6 +129,7 @@ grep "^# Version" ~/.claude/skills/ai-tutor/SKILL.md
 grep "^# Version" ~/.claude/skills/team-flow/SKILL.md
 grep "^# Version" ~/.claude/skills/non-consensus/SKILL.md
 grep "^# Version" ~/.claude/skills/skill-updater/SKILL.md
+grep "^# Version" ~/.claude/skills/fastlane/SKILL.md
 
 # OpenClaw
 grep "^# Version" ~/.openclaw/skills/ai-tutor/SKILL.md
@@ -126,6 +147,7 @@ rm -rf ~/.claude/skills/ai-tutor
 rm -rf ~/.claude/skills/team-flow
 rm -rf ~/.claude/skills/non-consensus
 rm -rf ~/.claude/skills/skill-updater
+rm -rf ~/.claude/skills/fastlane
 ```
 
 ---
@@ -160,6 +182,11 @@ rm -rf ~/.claude/skills/skill-updater
 |------|---------|
 | v1.2.0 | 批量生产节流：一次最多3条，先打分再展开 |
 | v1.1.0 | 冲突处理规则、知识边界声明、平台适配 |
+| v1.0.0 | 初始版本 |
+
+### Fastlane
+| 版本 | 更新内容 |
+|------|------|
 | v1.0.0 | 初始版本 |
 
 ### Skill Updater
