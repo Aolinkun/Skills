@@ -34,8 +34,8 @@ echo "请选择要安装的技能："
 echo "  1) ai-tutor       — 苏格拉底学习导师"
 echo "  2) team-flow      — 多角色任务协作系统"
 echo "  3) non-consensus  — 正确的非共识内容生成"
-echo "  4) cover-maker    — 社交媒体封面图生成器"
-echo "  5) skill-updater  — 技能库版本管理工具"
+echo "  4) skill-updater  — 技能库版本管理工具"
+echo "  5) fastlane       — 快车道业务评估"
 echo "  6) 全部安装（默认）"
 echo ""
 
@@ -56,8 +56,8 @@ install_skill() {
   curl -fsSL "$BASE_URL/$SKILL/references/mbo.md" -o "$INSTALL_DIR/references/mbo.md" 2>/dev/null || true
   curl -fsSL "$BASE_URL/$SKILL/references/examples.md" -o "$INSTALL_DIR/references/examples.md" 2>/dev/null || true
   curl -fsSL "$BASE_URL/$SKILL/references/lippmann.md" -o "$INSTALL_DIR/references/lippmann.md" 2>/dev/null || true
-  curl -fsSL "$BASE_URL/$SKILL/references/platform-specs.md" -o "$INSTALL_DIR/references/platform-specs.md" 2>/dev/null || true
-  curl -fsSL "$BASE_URL/$SKILL/references/design-examples.md" -o "$INSTALL_DIR/references/design-examples.md" 2>/dev/null || true
+  curl -fsSL "$BASE_URL/$SKILL/references/framework.md" -o "$INSTALL_DIR/references/framework.md" 2>/dev/null || true
+  curl -fsSL "$BASE_URL/$SKILL/references/business-types.md" -o "$INSTALL_DIR/references/business-types.md" 2>/dev/null || true
 
   VERSION=$(grep "^# Version" "$INSTALL_DIR/SKILL.md" 2>/dev/null || echo "版本未知")
   echo "  ✅ $SKILL 安装完成！$VERSION"
