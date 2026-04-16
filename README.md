@@ -102,7 +102,7 @@ curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh | b
 ---
 
 ### 🚀 Fastlane · 快车道业务评估
-`v1.0.0` · 适合：想评估自己业务潜力的人
+`v1.1.0` · 适合：想评估自己业务潜力的人
 
 **解决什么问题**：不知道自己的业务在哪条「车道」，不知道瓶颈在哪里，不知道怎么往快车道走。
 
@@ -187,6 +187,7 @@ rm -rf ~/.claude/skills/fastlane
 ### Fastlane
 | 版本 | 更新内容 |
 |------|------|
+| v1.1.0 | 追问机制、双层评分、迭代评估、评分标准细化、知识边界、代价透明、建议优先级 |
 | v1.0.0 | 初始版本 |
 
 ### Skill Updater
