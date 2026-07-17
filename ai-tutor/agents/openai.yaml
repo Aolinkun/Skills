@@ -1,0 +1,6 @@
+interface:
+  display_name: "AI Tutor 4"
+  short_description: "自适应学习、练习、间隔复习、应用追踪与跨会话掌握管理"
+  default_prompt: "使用 $ai-tutor 帮我真正掌握这个主题，并根据我的表现调整教学和复习。"
+policy:
+  allow_implicit_invocation: true

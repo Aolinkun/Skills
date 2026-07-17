@@ -1,114 +1,100 @@
 ---
 name: skill-updater
 description: >
-  技能库版本管理工具，检查本地已安装技能的版本，与 GitHub 最新版本对比，
-  只更新有新版本的技能，已是最新版的跳过不动。
-  当用户说「检查技能更新」、「更新技能」、「技能有没有新版本」、
-  「升级技能」、「sync skills」时，必须触发此技能。
+  技能库版本管理工具，检查 Claude Code、Codex 和 Grok 中已安装技能的版本，与 Aolinkun/Skills 的 GitHub 最新版本比较，并在用户确认后完整更新技能目录。当用户说“检查技能更新”“更新技能”“技能有没有新版本”“升级技能”或“sync skills”时使用。
 ---
 
-# Version: v1.1.0
+# Version: v2.0.0
 
-# Skill Updater · 技能库版本管理
+# Skill Updater · 完整技能包更新器
 
----
+## 目标
 
-## 角色定义
+比较本地与 GitHub 版本，只在用户确认后更新。更新必须包含 `SKILL.md`、references、assets、scripts、tests 和 agents 等完整技能包，不能只下载主文件。
 
-检查本地技能版本，与 GitHub 对比，只更新有新版本的，已是最新的跳过。
+## 仓库与安装位置
 
----
-
-## 技能库信息
-
-```
-GitHub：https://github.com/Aolinkun/Skills
-原始文件：https://raw.githubusercontent.com/Aolinkun/Skills/main
-本地目录：~/.claude/skills/ | ~/.openclaw/skills/ | ~/.codex/skills/
+```text
+GitHub: https://github.com/Aolinkun/Skills
+安装脚本: https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh
+Claude Code: ~/.claude/skills/
+Codex: ~/.codex/skills/
+Grok: ~/.grok/skills/
 ```
 
-已知技能：ai-tutor、team-flow、non-consensus、skill-updater
+已知技能：`ai-tutor`、`team-flow`、`non-consensus`、`skill-updater`、`fastlane`。
 
----
+## 检查流程
 
-## 执行流程
+1. 检查三个宿主目录中实际存在的技能。
+2. 从本地 `SKILL.md` 读取 `# Version:`。
+3. 从 GitHub 对应 `SKILL.md` 获取远程版本。
+4. 网络失败时逐项报告，继续检查其他技能。
+5. 按语义版本比较并输出报告：
 
-### 第一步：检测本地安装
-
-检查以下目录哪些存在：
-```bash
-~/.claude/skills/
-~/.openclaw/skills/
-~/.codex/skills/
+```text
+✅ ai-tutor        本地 v4.0.0 = 远程 v4.0.0
+🔄 team-flow       本地 v1.0.0 → 远程 v1.1.0
+⚠️ non-consensus  本地高于远程，可能是开发版
+❓ fastlane        未安装
 ```
 
-### 第二步：读取本地版本
+不要把字符串字典序当作版本大小；逐段比较主版本、次版本和修订号。
 
-对每个已安装技能：
-```bash
-grep "^# Version" ~/.claude/skills/[技能名]/SKILL.md
-```
+## 更新前确认
 
-### 第三步：获取远程版本
+列出宿主、技能、旧版本和新版本，然后让用户选择全部更新、选择更新或取消。没有确认不得写入。
+
+## 完整更新
+
+调用仓库安装脚本的非交互参数，避免自行维护文件清单：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/[技能名]/SKILL.md | grep "^# Version"
+curl -fsSL https://raw.githubusercontent.com/Aolinkun/Skills/main/install.sh \
+  | SKILLS_TARGET=1 SKILLS_CHOICE=1 bash
 ```
 
-网络失败时报告：「获取 [技能名] 远程版本失败，请检查网络后重试。」继续检查其他技能，不中断。
+`SKILLS_TARGET`：
 
-### 第四步：生成对比报告
+- `1` Claude Code
+- `2` Codex
+- `3` Grok
+- `4` 三端全部
 
-```
-📦 技能版本检查报告
+`SKILLS_CHOICE`：
 
-✅ ai-tutor        本地 v2.0.0  =  远程 v2.0.0  已是最新
-🔄 team-flow       本地 v1.0.0  →  远程 v1.1.0  有新版本
-⚠️  non-consensus  本地版本高于远程，可能是开发版，跳过
-❓  cover-maker    未安装
+- `1` ai-tutor
+- `2` team-flow
+- `3` non-consensus
+- `4` skill-updater
+- `5` fastlane
+- `6` 全部技能
 
-需要更新：1 个 ｜ 跳过：2 个
-```
+多个技能分次调用时，每次都核对返回码。更新后重新读取版本并确认完整目录存在。
 
-### 第五步：询问是否更新
+## 数据与冲突保护
 
-有新版本时：
-> 「以上 X 个技能有新版本，要现在更新吗？
-> 1）全部更新
-> 2）选择更新
-> 3）取消」
+- 只更新宿主的技能包目录，不触碰工作目录中的 `learning/`、课程进度或用户资料。
+- 安装器会覆盖仓库管理的同名文件，并保留技能目录中的未知附加文件。
+- 安装到 Grok 时，安装器会自动在入口 frontmatter 中生成 `user_invocable: true`。
+- 本地版本高于远程时默认跳过，除非用户明确要求降级。
+- 本地文件有用户自定义修改时先报告差异；不要静默覆盖。
+- 下载或包校验失败时停止该技能更新，不报告成功。
 
-### 第六步：执行更新
+## 完成报告
 
-**只覆盖文件，不删除目录**（避免丢失用户学习数据）：
+说明：
 
-```bash
-curl -fsSL [BASE_URL]/[技能名]/SKILL.md -o ~/.claude/skills/[技能名]/SKILL.md
-# 同样处理 references/ 下的文件
-```
-
-更新完成后确认：
-```
-✅ team-flow 已更新 v1.0.0 → v1.1.0
-```
-
----
-
-## 版本号规则
-
-| 情况 | 处理 |
-|------|------|
-| 本地 = 远程 | ✅ 跳过 |
-| 本地 < 远程 | 🔄 提示更新 |
-| 本地 > 远程 | ⚠️ 跳过，标注「可能是开发版」 |
-| 网络失败 | ❓ 报告失败，继续其他技能 |
-| 技能未安装 | ❓ 标注未安装，询问是否要安装 |
-
----
+- 更新了哪些宿主和技能；
+- 每项的旧版本与新版本；
+- 哪些失败或跳过及原因；
+- 是否需要重启宿主或重新加载技能列表。
 
 ## 禁止行为
 
-- ❌ 删除整个技能目录（会丢失用户数据）
-- ❌ 版本相同还执行更新
-- ❌ 不经确认就自动更新
-- ❌ 网络失败时静默跳过不报告
+- 不经确认自动更新。
+- 版本相同仍重复更新。
+- 只下载 `SKILL.md` 而漏掉支持文件。
+- 删除工作目录中的学习数据。
+- 网络或校验失败时静默跳过。
+- 把本地开发版自动降级到远程旧版。

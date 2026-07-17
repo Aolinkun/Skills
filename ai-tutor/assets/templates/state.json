@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "skill_version": "4.0.0",
+  "created_at": "",
+  "updated_at": "",
+  "recovered": false,
+  "topic": {
+    "title": "",
+    "slug": "",
+    "scope": ""
+  },
+  "goal": {
+    "purpose": "",
+    "observable_outcome": "",
+    "success_criteria": [],
+    "time_constraints": ""
+  },
+  "mode": "course",
+  "current_state": "intake",
+  "current_unit": null,
+  "next_actions": [],
+  "learner": {
+    "prior_knowledge": "unknown",
+    "notes": []
+  },
+  "curriculum": {
+    "core_units": [],
+    "optional_units": [],
+    "prerequisites": []
+  },
+  "mastery": {},
+  "weak_points": [],
+  "review_queue": [],
+  "application_queue": [],
+  "session": {
+    "last_session_file": "",
+    "last_assessment_at": ""
+  }
+}
